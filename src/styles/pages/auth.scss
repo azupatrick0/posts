@@ -1,0 +1,50 @@
+.auth {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 20vw;
+    justify-content: center;
+
+    span {
+      text-align: center;
+      margin-top: 15px;
+    }
+  }
+
+  input[type="text"] {
+    height: 40px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    outline: 0;
+    border: 1px solid yellowgreen;
+    padding-left: 10px;
+  }
+
+  input[type="email"] {
+    outline: 0;
+    border: 1px solid yellowgreen;
+    height: 40px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+  }
+
+  input[type="submit"] {
+    height: 40px;
+    border-radius: 4px;
+    background-color: rgb(114, 114, 209);
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(90, 90, 202);
+    }
+  }
+}
