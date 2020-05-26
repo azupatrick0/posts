@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Loader, Header, ListPosts } from "components";
 
 /**
@@ -6,11 +6,18 @@ import { Loader, Header, ListPosts } from "components";
  *
  * @returns {JSX}
  */
-const Posts = () => {
-  fetch("https://jsonplaceholder.typicode.com/posts")
+const Posts = ({ isAuthenticated, history }) => {
+  const [posts, setPosts] = useState([]);
+
+  if (!isAuthenticated) {
+    history.push('/login')
+  }
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts")
     .then(response => response.json())
     .then(json => setPosts(json));
-  const [posts, setPosts] = useState([]);
+  }, [])
 
   return (
     <>

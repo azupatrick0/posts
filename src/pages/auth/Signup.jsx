@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import saveUserToStorage from 'utils/saveUserToStorage.js';
 import { toast } from 'react-toastify';
 import { Link } from "react-router-dom";
+import Axios from 'axios';
 
 /**
  * Signup
@@ -15,25 +16,23 @@ const Signup = ({ history }) => {
 
   const [password, setPassword] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("https://taskmanagist.herokuapp.com/api/v1/auth/signup", {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: {
-        name,
-        email,
-        password
-      }
+    setLoading(true);
+
+    Axios.post("https://fast-food-fast.herokuapp.com/api/v1/auth/signup", {
+      name: name,
+      email: email,
+      password: password,
+      role: 'user'
     })
-    .then(response => response.json())
     .then(json => {
-      saveUserToStorage(json);
-      history.push('/posts');
+      saveUserToStorage(json.data.data);
+      setLoading(false);
+      setTimeout(() => history.push('/posts'), 1000)
     })
     .catch(error => toast.error('An error occured while signing you up, pleae try again'))
   }
@@ -46,7 +45,7 @@ const Signup = ({ history }) => {
           <input type="text" required placeholder="Name" onChange={(e) => setName(e.target.value)} value={name} />
           <input type="email" required placeholder="Email" onChange={(e) => setEmail(e.target.value)} value={email} />
           <input type="text" required placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={password} />
-          <input type="submit" value="Submit" />
+          <input type="submit" value={loading? "Loading...": "Submit"} />
 
           <span>Dont have account <Link to="/login">Login</Link></span>
         </form>
