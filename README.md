@@ -12,3 +12,7 @@ An app that helps you create posts
  
    * yarn start
 
+* Login
+ 
+   * email: azupatrick0+user@gmail.com
+   * password: password
