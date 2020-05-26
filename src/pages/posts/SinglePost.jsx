@@ -6,7 +6,11 @@ import { Loader, Header, ListPosts } from "components";
  *
  * @returns {JSX}
  */
-const SinglePosts = () => {
+const SinglePosts = ({ isAuthenticated, history }) => {
+  if (!isAuthenticated) {
+    history.push('/login')
+  }
+
   fetch("https://jsonplaceholder.typicode.com/posts")
     .then(response => response.json())
     .then(json => setPosts(json));

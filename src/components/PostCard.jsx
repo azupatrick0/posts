@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Loader } from "components";
 
 /**
  * Post Card
@@ -7,21 +8,29 @@ import React from "react";
  */
 const PostCard = ({ title, body, id, setPosts }) => {
 
+  const [loading, setLoading] = useState(false);
+
   const getASinglePost = () => {
+    setLoading(true);
     console.log(id)
-    // fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
-    // .then(response => response.json())
-    // .then(json => {
-    //   console.log(json, 'hehehe')
-    //   setPosts(json)});
+    fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      .then(response => response.json())
+      .then(json => {
+        setLoading(false);
+        setPosts([json])
+      });
   }
 
-
   return (
-    <div onClick={getASinglePost}>
-      <div className="list-posts__title">{title}</div>
-      <div className="list-posts__body">{body}</div>
-    </div>
+    <>
+      {
+        loading ? <Loader /> :
+          <div onClick={getASinglePost}>
+            <div className="list-posts__title">{title}</div>
+            <div className="list-posts__body">{body}</div>
+          </div>
+      }
+    </>
   );
 };
 
