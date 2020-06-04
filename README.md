@@ -1,5 +1,5 @@
 # Posts
-An app that helps you create and list posts
+An app that helps users create and list posts
 
 ## Installation
  * Ensure you have node 10.x.x installed.
